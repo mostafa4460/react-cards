@@ -8,10 +8,12 @@ const useFlip = () => {
     return [isFacingUp, toggleIsFacingUp];
 }
 
-const useAxios = url => {
+const useAxios = (url, options = {}) => {
     const [cards, setCards] = useState([]);
-    const addCard = async () => {
-        const res = await axios.get(url);
+
+    const addCard = async param => {
+        const URL = options.param === true ? `${url}/${param}` : url;
+        const res = await axios.get(URL);
         const newCard = {...res.data, id: uuid()};
         setCards(cards => [...cards, newCard]);
     }
